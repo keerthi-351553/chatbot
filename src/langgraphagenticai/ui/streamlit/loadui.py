@@ -27,9 +27,15 @@ class LoadUI:
                 self.user_controls["GROQ_API_KEY"]=st.session_state["GROQ_API_KEY"]=st.text_input("GROQ API KEY",type="password")
 
                 if not self.user_controls["GROQ_API_KEY"]:
-                    st.warning("Please enter a valid API KEY")
+                    st.warning("Please enter a valid Groq API KEY")
 
             # use case selection
             self.user_controls["selected_usecase"] = st.selectbox("Select Usecase", usecase_options)
+
+            if self.user_controls["selected_usecase"] == 'Chatbot with Web':
+                os.environ["TAVILY_API_KEY"]=self.user_controls["TAVILY_API_KEY "]=st.session_state["TAVILY_API_KEY "]=st.text_input("Tavily API KEY",type="password")
+
+                if not self.user_controls["TAVILY_API_KEY "]:
+                    st.warning("Please enter a valid Tavily API KEY")
 
         return self.user_controls
