@@ -32,10 +32,19 @@ class LoadUI:
             # use case selection
             self.user_controls["selected_usecase"] = st.selectbox("Select Usecase", usecase_options)
 
-            if self.user_controls["selected_usecase"] == 'Chatbot with Web':
+            if self.user_controls["selected_usecase"] == 'Chatbot with Web' or self.user_controls["selected_usecase"] == 'AI News':
                 os.environ["TAVILY_API_KEY"]=self.user_controls["TAVILY_API_KEY "]=st.session_state["TAVILY_API_KEY "]=st.text_input("Tavily API KEY",type="password")
 
                 if not self.user_controls["TAVILY_API_KEY "]:
                     st.warning("Please enter a valid Tavily API KEY")
+
+            #timeframe selection
+            if self.user_controls["selected_usecase"] == 'AI News':
+                st.subheader("AI News Explorer")
+                self.user_controls["selected_timeframe"] = st.selectbox("Select Timeframe", ["Daily", "Weekly", "Monthly"], index=0)
+
+            if st.button("Fetch Latest AI News", use_container_width=True):
+                st.session_state.selected_timeframe=self.user_controls["selected_timeframe"]
+                st.session_state.IsButtonClicked=True
 
         return self.user_controls

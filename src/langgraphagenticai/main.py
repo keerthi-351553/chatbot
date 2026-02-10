@@ -16,7 +16,13 @@ def load_ui():
         st.error("Please load a user input")
         return
 
-    user_message = st.chat_input("Enter your message:")
+    if "IsButtonClicked" not in st.session_state:
+        st.session_state["IsButtonClicked"] = False
+
+    if st.session_state.IsButtonClicked==True:
+        user_message=st.session_state["selected_timeframe"]
+    else:
+        user_message = st.chat_input("Enter your message:")
 
     if user_message:
         try:

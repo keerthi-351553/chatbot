@@ -36,3 +36,14 @@ class DisplayMessage:
                         st.write("AI Message start")
                         st.write(message.content)
                         st.write("AI Message end")
+        elif usecase == "AI News":
+            frequency=st.session_state["selected_timeframe"]
+            with st.spinner("Fetching AI News"):
+                result=graph.invoke({"messages": frequency})
+                try:
+                    AINewsPath=f"./AINews/{frequency}.md"
+                    with open(AINewsPath,"r") as f:
+                        markdown_content=f.read()
+                    st.markdown(markdown_content,unsafe_allow_html=True)
+                except Exception as e:
+                    st.error(f"error:{e}")
